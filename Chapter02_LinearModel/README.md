@@ -2,8 +2,8 @@
 
 ## Code
 
-- `plot_linear_model_loss.py`: plots the MSE loss curve for different `w` values.
-- `plot_linear_model_cost_surface.py`: plots the 3D cost surface for different `w` and `b` values.
+- `plot_2d_loss_effect.py`: plots the MSE loss curve for different `w` values.
+- `plot_3d_cost_surface_effect.py`: plots the 3D cost surface for different `w` and `b` values.
 
 ## Images
 
