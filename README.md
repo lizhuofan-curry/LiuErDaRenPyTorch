@@ -31,9 +31,9 @@
 ## 学习进度
 
 - [x] 13 / 13 章课程课件已归档。
-- [x] 第 01–04 章已有章内学习笔记。
-- [x] 第 02–04 章已有 7 个可运行实验脚本。
-- [ ] 第 05–13 章学习笔记与实验代码待继续补充。
+- [x] 第 01–05 章已有章内学习笔记。
+- [x] 第 02–05 章已有 14 个可运行实验脚本。
+- [ ] 第 06–13 章学习笔记与实验代码待继续补充。
 
 ## 章节导航
 
@@ -43,7 +43,7 @@
 | [第 02 章](./Chapter02_LinearModel/) | 线性模型 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=2) | [课件](./Chapter02_LinearModel/Lecture_02_Linear_Model.pdf) · [笔记](./Chapter02_LinearModel/README.md) · [2D Loss](./Chapter02_LinearModel/plot_2d_loss_effect.py) · [3D Cost](./Chapter02_LinearModel/plot_3d_cost_surface_effect.py) |
 | [第 03 章](./Chapter03_GradientDescent/) | 梯度下降算法 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=3) | [课件](./Chapter03_GradientDescent/Lecture_03_Gradient_Descent.pdf) · [笔记](./Chapter03_GradientDescent/README.md) · [Batch GD](./Chapter03_GradientDescent/gradient_descent.py) · [SGD](./Chapter03_GradientDescent/stochastic_gradient_descent.py) · [Mini-batch](./Chapter03_GradientDescent/mini_batch_gradient_descent.py) |
 | [第 04 章](./Chapter04_BackPropagation/) | 反向传播 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=4) | [课件](./Chapter04_BackPropagation/Lecture_04_Back_Propagation.pdf) · [笔记](./Chapter04_BackPropagation/README.md) · [`y = wx`](./Chapter04_BackPropagation/backpropagation_y_wx.py) · [二次模型](./Chapter04_BackPropagation/backpropagation_quadratic.py) |
-| [第 05 章](./Chapter05_LinearRegressionWithPyTorch/) | 使用 PyTorch 实现线性回归 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=5) | [课件](./Chapter05_LinearRegressionWithPyTorch/Lecture_05_Linear_Regression_with_PyTorch.pdf) · 暂无笔记与代码 |
+| [第 05 章](./Chapter05_LinearRegressionWithPyTorch/) | 使用 PyTorch 实现线性回归 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=5) | [课件](./Chapter05_LinearRegressionWithPyTorch/Lecture_05_Linear_Regression_with_PyTorch.pdf) · [笔记与 7 种优化器示例](./Chapter05_LinearRegressionWithPyTorch/README.md) |
 | [第 06 章](./Chapter06_LogisticRegression/) | 逻辑回归 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=6) | [课件](./Chapter06_LogisticRegression/Lecture_06_Logistic_Regression.pdf) · 暂无笔记与代码 |
 | [第 07 章](./Chapter07_MultipleDimensionInput/) | 多维特征输入 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=7) | [课件](./Chapter07_MultipleDimensionInput/Lecture_07_Multiple_Dimension_Input.pdf) · 暂无笔记与代码 |
 | [第 08 章](./Chapter08_DatasetAndDataloader/) | Dataset 与 DataLoader | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=8) | [课件](./Chapter08_DatasetAndDataloader/Lecture_08_Dataset_and_Dataloader.pdf) · 暂无笔记与代码 |
@@ -63,7 +63,7 @@ python -m pip install numpy matplotlib torch
 
 - 第 02 章使用 NumPy 和 Matplotlib。
 - 第 03 章仅使用 Python 标准库。
-- 第 04 章使用 PyTorch 自动求导。
+- 第 04–05 章使用 PyTorch 自动求导和优化器。
 
 ## 运行示例
 
@@ -97,6 +97,14 @@ python Chapter03_GradientDescent/mini_batch_gradient_descent.py
 python Chapter04_BackPropagation/backpropagation_y_wx.py
 python Chapter04_BackPropagation/backpropagation_quadratic.py
 ```
+
+运行第 05 章优化器示例：
+
+```bash
+python "Chapter05_LinearRegressionWithPyTorch/optim.SGD版.py"
+```
+
+其余六种优化器的运行命令与对比说明见[第 05 章笔记](./Chapter05_LinearRegressionWithPyTorch/README.md)。
 
 ## 数据集
 
