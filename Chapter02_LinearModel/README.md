@@ -7,7 +7,12 @@
 
 ## Images
 
-- `images/linear_model_loss_curve.svg`
-- `images/linear_model_cost_surface.svg`
+### 2D loss effect
+
+![2D loss effect](images/linear_model_loss_curve.svg)
+
+### 3D cost surface effect
+
+![3D cost surface effect](images/linear_model_cost_surface.svg)
 
 The scripts also save PNG images into `images/` when run locally.
