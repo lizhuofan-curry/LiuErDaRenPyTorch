@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from pathlib import Path
 
 
 x_data = [1.0, 2.0, 3.0]
@@ -33,4 +34,7 @@ for w in np.arange(0.0, 4.1, 0.1):
 plt.plot(w_list, mse_list)
 plt.ylabel("Loss")
 plt.xlabel("w")
+output_dir = Path(__file__).resolve().parent / "images"
+output_dir.mkdir(exist_ok=True)
+plt.savefig(output_dir / "linear_model_loss_curve.png", dpi=200, bbox_inches="tight")
 plt.show()

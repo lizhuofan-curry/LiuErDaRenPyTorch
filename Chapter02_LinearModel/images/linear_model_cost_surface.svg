@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" role="img" aria-labelledby="title desc">
+  <title id="title">Linear Model 3D Cost Surface</title>
+  <desc id="desc">A 3D-style surface plot of cost over parameters w and b.</desc>
+  <defs>
+    <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b91c1c"/>
+      <stop offset="0.48" stop-color="#f8fafc"/>
+      <stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="620" fill="#ffffff"/>
+  <g fill="none" stroke="#d1d5db" stroke-width="1">
+    <path d="M180 440 L520 560 L760 400"/>
+    <path d="M180 440 L340 180 L760 400"/>
+    <path d="M520 560 L620 260 L760 400"/>
+    <path d="M220 454 L380 194"/>
+    <path d="M265 470 L425 209"/>
+    <path d="M310 486 L470 225"/>
+    <path d="M355 502 L515 240"/>
+    <path d="M400 518 L560 256"/>
+    <path d="M445 534 L605 272"/>
+    <path d="M228 420 L568 540"/>
+    <path d="M276 398 L616 518"/>
+    <path d="M324 376 L664 496"/>
+    <path d="M372 354 L712 474"/>
+  </g>
+  <g opacity="0.96" stroke="#ffffff" stroke-width="1">
+    <polygon points="215,420 270,384 330,412 276,452" fill="#b91c1c"/>
+    <polygon points="270,384 328,350 386,382 330,412" fill="#dc2626"/>
+    <polygon points="328,350 390,322 448,356 386,382" fill="#ef4444"/>
+    <polygon points="390,322 455,300 512,336 448,356" fill="#f97316"/>
+    <polygon points="455,300 522,288 578,326 512,336" fill="#facc15"/>
+    <polygon points="276,452 330,412 392,430 338,476" fill="#dc2626"/>
+    <polygon points="330,412 386,382 448,404 392,430" fill="#f87171"/>
+    <polygon points="386,382 448,356 508,382 448,404" fill="#fde68a"/>
+    <polygon points="448,356 512,336 570,366 508,382" fill="#dbeafe"/>
+    <polygon points="512,336 578,326 634,360 570,366" fill="#93c5fd"/>
+    <polygon points="338,476 392,430 456,438 402,492" fill="#ef4444"/>
+    <polygon points="392,430 448,404 512,416 456,438" fill="#fef3c7"/>
+    <polygon points="448,404 508,382 570,398 512,416" fill="#eff6ff"/>
+    <polygon points="508,382 570,366 630,386 570,398" fill="#60a5fa"/>
+    <polygon points="570,366 634,360 690,386 630,386" fill="#2563eb"/>
+    <polygon points="402,492 456,438 522,438 466,502" fill="#f97316"/>
+    <polygon points="456,438 512,416 578,422 522,438" fill="#dbeafe"/>
+    <polygon points="512,416 570,398 634,408 578,422" fill="#bfdbfe"/>
+    <polygon points="570,398 630,386 690,402 634,408" fill="#3b82f6"/>
+    <polygon points="630,386 690,386 742,410 690,402" fill="#1d4ed8"/>
+  </g>
+  <g stroke="#111827" stroke-width="2" fill="none">
+    <path d="M180 440 L520 560 L760 400"/>
+    <path d="M180 440 L340 180"/>
+    <path d="M760 400 L620 260"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#111827">
+    <text x="338" y="42" font-size="24" font-weight="700">3D Cost Surface</text>
+    <text x="518" y="590" font-size="16">w</text>
+    <text x="132" y="456" font-size="16">b</text>
+    <text x="628" y="252" font-size="16">Cost Value</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="13" fill="#374151">
+    <text x="187" y="466">-2</text>
+    <text x="336" y="520">0</text>
+    <text x="508" y="584">2</text>
+    <text x="742" y="428">4</text>
+  </g>
+</svg>
