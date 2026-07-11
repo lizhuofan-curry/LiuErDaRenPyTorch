@@ -2,6 +2,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
+import matplotlib.pyplot as plt
 
 
 # 固定随机种子，便于复现实验结果。
@@ -41,6 +42,8 @@ optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
 
 
 # 4. 使用整个训练集训练；每轮建立新的计算图并更新一次参数。
+loss_history = []
+
 for epoch in range(1000):
     y_pred = model(x_data)
     loss = criterion(y_pred, y_data)
@@ -48,6 +51,7 @@ for epoch in range(1000):
     optimizer.zero_grad()
     loss.backward()
     optimizer.step()
+    loss_history.append(loss.item())
 
     if (epoch + 1) % 100 == 0:
         print(f"Epoch {epoch + 1:4d}, Loss: {loss.item():.6f}")
@@ -69,3 +73,49 @@ with torch.no_grad():
     print("真实标签中 1 的数量：", (y_data == 1).sum().item())
     print("预测为 0 的数量：", (predictions == 0).sum().item())
     print("预测为 1 的数量：", (predictions == 1).sum().item())
+
+    true_counts = [
+        (y_data == 0).sum().item(),
+        (y_data == 1).sum().item(),
+    ]
+    predicted_counts = [
+        (predictions == 0).sum().item(),
+        (predictions == 1).sum().item(),
+    ]
+
+
+# 6. 保存训练效果图。
+image_dir = Path(__file__).resolve().parent / "images"
+image_dir.mkdir(exist_ok=True)
+image_path = image_dir / "diabetes_training_result.png"
+
+figure, axes = plt.subplots(1, 2, figsize=(11, 4.5))
+
+axes[0].plot(range(1, len(loss_history) + 1), loss_history, color="#2563eb")
+axes[0].set_title("Training Loss")
+axes[0].set_xlabel("Epoch")
+axes[0].set_ylabel("BCELoss")
+axes[0].grid(alpha=0.25)
+
+positions = np.arange(2)
+width = 0.35
+axes[1].bar(positions - width / 2, true_counts, width, label="True", color="#16a34a")
+axes[1].bar(
+    positions + width / 2,
+    predicted_counts,
+    width,
+    label="Predicted",
+    color="#f97316",
+)
+axes[1].set_title(f"Class Counts (Accuracy: {accuracy * 100:.2f}%)")
+axes[1].set_xlabel("Class")
+axes[1].set_ylabel("Samples")
+axes[1].set_xticks(positions, ["0", "1"])
+axes[1].legend()
+axes[1].grid(axis="y", alpha=0.25)
+
+figure.tight_layout()
+figure.savefig(image_path, dpi=160, bbox_inches="tight")
+plt.close(figure)
+
+print("效果图已保存：", image_path)
