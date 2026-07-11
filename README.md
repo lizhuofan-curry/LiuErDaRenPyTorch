@@ -45,7 +45,7 @@
 | [第 04 章](./Chapter04_BackPropagation/) | 反向传播 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=4) | [课件](./Chapter04_BackPropagation/Lecture_04_Back_Propagation.pdf) · [笔记](./Chapter04_BackPropagation/README.md) · [`y = wx`](./Chapter04_BackPropagation/backpropagation_y_wx.py) · [二次模型](./Chapter04_BackPropagation/backpropagation_quadratic.py) |
 | [第 05 章](./Chapter05_LinearRegressionWithPyTorch/) | 使用 PyTorch 实现线性回归 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=5) | [课件](./Chapter05_LinearRegressionWithPyTorch/Lecture_05_Linear_Regression_with_PyTorch.pdf) · [笔记与 7 种优化器示例](./Chapter05_LinearRegressionWithPyTorch/README.md) |
 | [第 06 章](./Chapter06_LogisticRegression/) | 逻辑回归 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=6) | [课件](./Chapter06_LogisticRegression/Lecture_06_Logistic_Regression.pdf) · [笔记](./Chapter06_LogisticRegression/README.md) · [Sigmoid 概率回归](./Chapter06_LogisticRegression/logistic_regression.py) |
-| [第 07 章](./Chapter07_MultipleDimensionInput/) | 多维特征输入 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=7) | [课件](./Chapter07_MultipleDimensionInput/Lecture_07_Multiple_Dimension_Input.pdf) · [糖尿病二分类](./Chapter07_MultipleDimensionInput/diabetes_binary_classification.py) |
+| [第 07 章](./Chapter07_MultipleDimensionInput/) | 多维特征输入 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=7) | [课件](./Chapter07_MultipleDimensionInput/Lecture_07_Multiple_Dimension_Input.pdf) · [笔记](./Chapter07_MultipleDimensionInput/README.md) · [糖尿病二分类](./Chapter07_MultipleDimensionInput/diabetes_binary_classification.py) |
 | [第 08 章](./Chapter08_DatasetAndDataloader/) | Dataset 与 DataLoader | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=8) | [课件](./Chapter08_DatasetAndDataloader/Lecture_08_Dataset_and_Dataloader.pdf) · 暂无笔记与代码 |
 | [第 09 章](./Chapter09_SoftmaxClassifier/) | Softmax 多分类器 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=9) | [课件](./Chapter09_SoftmaxClassifier/Lecture_09_Softmax_Classifier.pdf) · 暂无笔记与代码 |
 | [第 10 章](./Chapter10_BasicCNN/) | 基础卷积神经网络（CNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=10) | [课件](./Chapter10_BasicCNN/Lecture_10_Basic_CNN.pdf) · 暂无笔记与代码 |
@@ -119,44 +119,6 @@ python Chapter06_LogisticRegression/logistic_regression.py
 ```bash
 python Chapter07_MultipleDimensionInput/diabetes_binary_classification.py
 ```
-
-## 多维输入二分类学习总结
-
-本例读取 [`datasets/diabetes.csv.gz`](./datasets/diabetes.csv.gz)：前 8 列存入 `x_data` 作为输入特征，最后一列存入 `y_data` 作为 0/1 真实标签。模型的完整训练链路是：
-
-```text
-x_data
-  → Linear(8, 6) → ReLU
-  → Linear(6, 4) → ReLU
-  → Linear(4, 1) → Sigmoid
-  → 预测概率 y_pred
-  → BCELoss(y_pred, y_data)
-  → loss.backward() 计算梯度
-  → SGD 更新各 Linear 层的 W 和 b
-```
-
-各部分的职责如下：
-
-- `Linear` 层保存并使用可训练参数 `W` 和 `b`。
-- 隐藏层的 ReLU 引入非线性，使多层网络能够学习比单一线性变换更复杂的特征关系；ReLU 本身没有需要训练的 `W` 和 `b`。
-- 输出层的 Sigmoid 把任意实数压缩到 0～1，作为类别 1 的预测概率；它本身也没有可训练参数。
-- `BCELoss` 用真实标签衡量预测概率的错误程度。真实标签为 1 时推动概率靠近 1，真实标签为 0 时推动概率靠近 0。
-- `loss.backward()` 沿本轮前向传播建立的计算图，使用链式法则计算 loss 对各层 `W`、`b` 的偏导数。
-- `optimizer.step()` 按 SGD 规则 `参数 = 参数 - 学习率 × 梯度` 更新参数；`optimizer.zero_grad()` 在每轮反向传播前清空上一轮累积的梯度。
-
-每次前向传播与 loss 计算都会建立一张新的动态计算图。普通训练中，`backward()` 使用这张图计算梯度后，图中为反向传播保存的中间结果会被释放；下一轮再基于更新后的参数建立新图。经过多轮“前向预测 → 计算损失 → 反向传播 → 更新参数”，模型找到一组使损失较小的 `W` 和 `b`。它们不是唯一的“正确值”，而是一组较适合当前任务的参数。
-
-准确率的判断逻辑是：先执行 `model(x_data)` 得到概率，再以 0.5 为阈值转换成类别，最后与 `y_data` 逐个比较：
-
-```python
-with torch.no_grad():
-    probabilities = model(x_data)
-    predictions = (probabilities >= 0.5).float()
-    correct = (predictions == y_data).sum().item()
-    accuracy = correct / y_data.numel()
-```
-
-也就是说，`预测类别 == 真实标签` 的样本才算判断正确，准确率等于“判断正确的样本数 ÷ 样本总数”。本例为了复现课件流程，训练和评估使用了同一批数据，因此输出的是训练准确率；要衡量模型对未知样本的泛化能力，还应划分独立的验证集或测试集。增加训练轮数或隐藏层数不保证测试准确率一定提高：轮数过少可能尚未收敛，网络过深或训练过久则可能过拟合。
 
 ## 数据集
 
