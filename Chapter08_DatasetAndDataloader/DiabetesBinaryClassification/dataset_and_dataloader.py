@@ -65,7 +65,7 @@ def average_loss(model, data_loader, criterion):
 def main():
     torch.manual_seed(SEED)
 
-    data_path = Path(__file__).resolve().parents[1] / "datasets" / "diabetes.csv.gz"
+    data_path = Path(__file__).resolve().parents[2] / "datasets" / "diabetes.csv.gz"
     dataset = DiabetesDataset(data_path)
 
     train_size = int(0.8 * len(dataset))
