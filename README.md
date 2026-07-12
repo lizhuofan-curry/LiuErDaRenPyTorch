@@ -32,8 +32,8 @@
 
 - [x] 13 / 13 章课程课件已归档。
 - [x] 第 01–06 章已有章内学习笔记。
-- [x] 第 02–07 章已有可运行实验脚本。
-- [ ] 第 08–13 章学习笔记与实验代码待继续补充。
+- [x] 第 02–08 章已有可运行实验脚本。
+- [ ] 第 09–13 章学习笔记与实验代码待继续补充。
 
 ## 章节导航
 
@@ -46,7 +46,7 @@
 | [第 05 章](./Chapter05_LinearRegressionWithPyTorch/) | 使用 PyTorch 实现线性回归 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=5) | [课件](./Chapter05_LinearRegressionWithPyTorch/Lecture_05_Linear_Regression_with_PyTorch.pdf) · [笔记与 7 种优化器示例](./Chapter05_LinearRegressionWithPyTorch/README.md) |
 | [第 06 章](./Chapter06_LogisticRegression/) | 逻辑回归 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=6) | [课件](./Chapter06_LogisticRegression/Lecture_06_Logistic_Regression.pdf) · [笔记](./Chapter06_LogisticRegression/README.md) · [Sigmoid 概率回归](./Chapter06_LogisticRegression/logistic_regression.py) |
 | [第 07 章](./Chapter07_MultipleDimensionInput/) | 多维特征输入 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=7) | [课件](./Chapter07_MultipleDimensionInput/Lecture_07_Multiple_Dimension_Input.pdf) · [笔记](./Chapter07_MultipleDimensionInput/README.md) · [糖尿病二分类](./Chapter07_MultipleDimensionInput/diabetes_binary_classification.py) |
-| [第 08 章](./Chapter08_DatasetAndDataloader/) | Dataset 与 DataLoader | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=8) | [课件](./Chapter08_DatasetAndDataloader/Lecture_08_Dataset_and_Dataloader.pdf) · 暂无笔记与代码 |
+| [第 08 章](./Chapter08_DatasetAndDataloader/) | Dataset 与 DataLoader | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=8) | [课件](./Chapter08_DatasetAndDataloader/Lecture_08_Dataset_and_Dataloader.pdf) · [笔记](./Chapter08_DatasetAndDataloader/README.md) · [Dataset 与 DataLoader](./Chapter08_DatasetAndDataloader/dataset_and_dataloader.py) |
 | [第 09 章](./Chapter09_SoftmaxClassifier/) | Softmax 多分类器 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=9) | [课件](./Chapter09_SoftmaxClassifier/Lecture_09_Softmax_Classifier.pdf) · 暂无笔记与代码 |
 | [第 10 章](./Chapter10_BasicCNN/) | 基础卷积神经网络（CNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=10) | [课件](./Chapter10_BasicCNN/Lecture_10_Basic_CNN.pdf) · 暂无笔记与代码 |
 | [第 11 章](./Chapter11_AdvancedCNN/) | 高级卷积神经网络（CNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=11) | [课件](./Chapter11_AdvancedCNN/Lecture_11_Advanced_CNN.pdf) · 暂无笔记与代码 |
@@ -63,7 +63,7 @@ python -m pip install numpy matplotlib torch
 
 - 第 02 章使用 NumPy 和 Matplotlib。
 - 第 03 章仅使用 Python 标准库。
-- 第 04–06 章使用 PyTorch 自动求导和优化器。
+- 第 04–08 章使用 PyTorch 自动求导和优化器。
 
 ## 运行示例
 
@@ -120,13 +120,21 @@ python Chapter06_LogisticRegression/logistic_regression.py
 python Chapter07_MultipleDimensionInput/diabetes_binary_classification.py
 ```
 
+运行第 08 章 Dataset 与 DataLoader 示例：
+
+```bash
+python Chapter08_DatasetAndDataloader/dataset_and_dataloader.py
+```
+
+训练/验证划分、mini-batch 流程与结果图见[第 08 章笔记](./Chapter08_DatasetAndDataloader/README.md)。
+
 ## 数据集
 
 课程相关数据文件统一保存在 [`datasets/`](./datasets/) 目录，并保留原始 `.csv.gz` 压缩格式：
 
 | 文件 | 状态 |
 |---|---|
-| [`diabetes.csv.gz`](./datasets/diabetes.csv.gz) | 已由第 07 章糖尿病二分类脚本引用 |
+| [`diabetes.csv.gz`](./datasets/diabetes.csv.gz) | 已由第 07、08 章糖尿病二分类脚本引用 |
 | [`names_train.csv.gz`](./datasets/names_train.csv.gz) | 已归档，当前脚本尚未引用 |
 | [`names_test.csv.gz`](./datasets/names_test.csv.gz) | 已归档，当前脚本尚未引用 |
 
