@@ -1,60 +1,27 @@
 # 第 08 章：Dataset 与 DataLoader
 
-本章在第 07 章糖尿病二分类模型的基础上，引入 PyTorch 的 `Dataset`、`random_split` 和 `DataLoader`，把数据读取、训练/验证划分与 mini-batch 训练组织成更标准的流程。
+本章通过两个独立的二分类项目练习 PyTorch 的 `Dataset`、`DataLoader`、训练/验证划分和 mini-batch 训练流程。课程讲义仍保留在本目录的 `Lecture_08_Dataset_and_Dataloader.pdf`。
 
-## 运行示例
+## 项目目录
 
-从仓库根目录运行：
+| 项目 | 任务 | 本章重点 | 运行结果 |
+|---|---|---|---|
+| [DiabetesBinaryClassification](./DiabetesBinaryClassification/) | 糖尿病二分类 | 自定义 `Dataset`、`random_split`、`DataLoader` | 验证准确率 77.63% |
+| [TitanicSurvivalPrediction](./TitanicSurvivalPrediction/) | Titanic 生还预测 | CSV 清洗、`TensorDataset`、Kaggle 提交文件 | 最佳验证准确率 85.47% |
 
-```bash
-python Chapter08_DatasetAndDataloader/dataset_and_dataloader.py
-```
+### 糖尿病二分类
 
-脚本会读取 [`../datasets/diabetes.csv.gz`](../datasets/diabetes.csv.gz)，按照固定随机种子 `42` 划分为 80% 训练集和 20% 验证集。训练集按 32 个样本组成 mini-batch 并打乱，验证集只做前向计算，不参与参数更新。
+该项目将第 07 章的全量训练改为标准的数据管线：从共享数据集读取样本，按 80% / 20% 划分训练集与验证集，再利用 `DataLoader` 进行 mini-batch 训练。详见 [项目 README](./DiabetesBinaryClassification/README.md)。
 
-## 运行效果
+![糖尿病训练与验证损失](./DiabetesBinaryClassification/images/training_validation_loss.png)
 
-训练 1000 轮后，脚本会输出最终验证准确率，并将训练集与验证集的 loss 曲线保存为：
+### Titanic 生还预测
 
-![训练集与验证集 loss 曲线](./images/training_validation_loss.png)
+该项目以 Kaggle Titanic 数据为例，展示缺失值处理、类别特征数值化、PyTorch 二分类训练以及生成 `submission.csv` 的完整流程。详见 [项目 README](./TitanicSurvivalPrediction/README.md)。
 
-本次运行的最终验证准确率为 **77.63%**。固定随机种子可以使数据划分和批次顺序可复现，但不同 PyTorch 版本或硬件环境下的末位数值仍可能略有差异。
+![Titanic 训练与验证准确率](./TitanicSurvivalPrediction/images/training_validation_accuracy.png)
 
-从曲线可以同时观察模型对训练数据和未参与参数更新的验证数据的拟合情况：如果训练 loss 持续下降，而验证 loss 明显回升，通常意味着模型开始过拟合。
+## 共享数据
 
-## 数据流
+糖尿病项目使用仓库根目录的 [`datasets/diabetes.csv.gz`](../datasets/diabetes.csv.gz)。该文件同时被第 07 章使用，因此保留在共享数据目录中。
 
-```text
-diabetes.csv.gz
-  → DiabetesDataset
-  → random_split（80% 训练 / 20% 验证）
-  → DataLoader（batch_size=32）
-  → DNN：8 → 6 → 4 → 1
-  → BCELoss
-  → SGD 更新训练集梯度
-  → 验证集 loss 与准确率
-```
-
-## 原代码中的关键修正
-
-- Python 特殊方法应写成 `__init__`、`__getitem__` 和 `__len__`，而不是 Markdown 加粗形式的 `**init**` 等。
-- Matplotlib 的正确导入方式是 `import matplotlib.pyplot as plt`。
-- 优化器名称是 `torch.optim.SGD`，不是 `torch.optim.SDG`。
-- 使用脚本自身位置拼接数据集路径，避免因运行目录不同而找不到文件。
-- 验证阶段使用 `model.eval()` 和 `torch.no_grad()`，避免记录不需要的梯度。
-- loss 按样本数加权求平均，正确处理最后一个不足 32 个样本的 batch。
-- 固定模型初始化、数据划分与训练集打乱的随机种子，便于复现实验。
-
-## 训练参数
-
-| 参数 | 设置 |
-|---|---:|
-| 随机种子 | 42 |
-| 训练/验证比例 | 80% / 20% |
-| Batch size | 32 |
-| Epochs | 1000 |
-| 优化器 | SGD |
-| 学习率 | 0.01 |
-| 损失函数 | BCELoss |
-
-验证集只用于观察训练过程，不应被用来更新模型参数。若要给出更严格的最终泛化性能，还应额外保留独立测试集。
