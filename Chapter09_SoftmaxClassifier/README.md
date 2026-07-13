@@ -1,10 +1,12 @@
 # 第 09 章：Softmax 多分类器
 
-本章使用 MNIST 手写数字数据集完成 0–9 十分类。模型将 28×28 灰度图展平为 784 维特征，经多层全连接网络输出 10 个 logits，再由 `CrossEntropyLoss` 完成 softmax 与交叉熵计算。
+本章围绕多分类任务展开，使用全连接神经网络输出 logits，并通过 `CrossEntropyLoss` 完成 softmax 与交叉熵计算。
 
 ## 本章项目
 
-[MNIST 手写数字识别](./MNISTHandwrittenDigitRecognition/README.md)
+### MNIST 手写数字识别
+
+[查看项目说明](./MNISTHandwrittenDigitRecognition/README.md)
 
 ![MNIST 0–9 样本预览](./MNISTHandwrittenDigitRecognition/images/mnist_samples.png)
 
@@ -15,7 +17,15 @@
 - 4 个官方压缩 IDX 数据文件；首次运行自动解压，可离线复现
 - 样本展示图与完整的运行、模型和验证说明
 
-## 快速运行
+### Otto 商品多分类
+
+[查看项目说明](./OttoProductClassification/README.md) · [打开 Notebook](./OttoProductClassification/奥拓物品分类.ipynb)
+
+![Otto 训练集类别分布](./OttoProductClassification/images/target_distribution.png)
+
+该项目基于 Otto Group 商品分类数据，使用 93 个数值特征预测 9 个商品类别。Notebook 包含数据探索、分层划分、标准化、`DataLoader` 构建及多层全连接分类网络草稿。
+
+## 快速运行 MNIST 项目
 
 在仓库根目录执行：
 
