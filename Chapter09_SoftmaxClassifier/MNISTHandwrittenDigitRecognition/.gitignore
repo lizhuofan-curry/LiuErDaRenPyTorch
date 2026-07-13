@@ -1,0 +1,8 @@
+# 解压出的 IDX 数据由 train_mnist.py / Notebook 在首次运行时生成。
+data/MNIST/raw/train-images-idx3-ubyte
+data/MNIST/raw/train-labels-idx1-ubyte
+data/MNIST/raw/t10k-images-idx3-ubyte
+data/MNIST/raw/t10k-labels-idx1-ubyte
+
+# 每次训练生成的本机指标图。
+images/training_metrics.png
