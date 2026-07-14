@@ -21,9 +21,9 @@
 
 [查看项目说明](./OttoProductClassification/README.md) · [打开 Notebook](./OttoProductClassification/奥拓物品分类.ipynb)
 
-![Otto 训练集类别分布](./OttoProductClassification/images/target_distribution.png)
+![Otto 训练与验证损失](./OttoProductClassification/images/training_validation_loss.png)
 
-该项目基于 Otto Group 商品分类数据，使用 93 个数值特征预测 9 个商品类别。Notebook 包含数据探索、分层划分、标准化、`DataLoader` 构建及多层全连接分类网络草稿。
+该项目基于 Otto Group 商品分类数据，使用 93 个数值特征预测 9 个商品类别。项目已包含完整训练集、测试集、最佳模型权重、概率预测提交文件，以及类别分布和训练曲线。50 轮实验的最低验证损失为 `0.5071`。
 
 ## 快速运行 MNIST 项目
 
