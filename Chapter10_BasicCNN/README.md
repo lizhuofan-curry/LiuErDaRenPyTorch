@@ -7,11 +7,9 @@
 ## 内容
 
 - [`Lecture_10_Basic_CNN.pdf`](./Lecture_10_Basic_CNN.pdf)：第 10 章课程课件。
-- [`MNIST_CNN_Configuration_Comparison.ipynb`](./MNIST_CNN_Configuration_Comparison.ipynb)：CNN-S、CNN-M、CNN-L 三种宽度配置的训练与对比实验。
-- [`MNIST_Three_CNN_Architectures.ipynb`](./MNIST_Three_CNN_Architectures.ipynb)：普通 CNN、InceptionNet、简化 ResNet 三种架构的 MNIST 实测对比。
+- [`MNIST_CNN_Configuration_Comparison.ipynb`](./MNIST_CNN_Configuration_Comparison.ipynb)：三种 CNN 配置的完整训练、评估与可视化实验。
 - `images/exercise_10_1.png`：Exercise 10-1 作业要求示意图。
 - `images/cnn_configuration_comparison.png`：运行 Notebook 后自动生成的损失与准确率对比图。
-- `images/mnist_three_cnn_comparison.png`：三种 CNN 架构的已执行训练曲线。
 
 ## 作业目标
 
@@ -48,20 +46,6 @@
 
 Notebook 会输出每个模型的参数量、最佳测试准确率、最终测试准确率和训练时间，并生成三组训练曲线。第 09 章原 MLP 的一次已记录测试准确率为 97.73%，图中仅将其作为参考线；CNN 的结果以实际运行输出为准。
 
-## 三种 CNN 架构实测
-
-第二个 Notebook 在相同 MNIST 数据、batch size、SGD 配置、随机种子和 10 个 epoch 下，对比普通 CNN、InceptionNet 与简化 ResNet。
-
-![普通 CNN、InceptionNet 与 ResNetMNIST 对比](./images/mnist_three_cnn_comparison.png)
-
-| 模型 | 参数量 | 最佳测试准确率 | 最终测试准确率 | 训练时间 |
-|---|---:|---:|---:|---:|
-| Normal_CNN | 106,058 | 98.71% | 98.48% | 285.4 s |
-| InceptionNet | 90,074 | **98.91%** | **98.58%** | 331.7 s |
-| ResNetMNIST | 77,418 | 98.06% | 98.06% | 291.9 s |
-
-这次运行中，InceptionNet 参数量少于普通 CNN，并取得最高测试准确率，但训练时间最长；简化 ResNet 参数最少，但前两个 epoch 收敛较慢。以上结果来自 Notebook 中已保存的一次实际运行，硬件、PyTorch 版本和随机性变化会使结果略有不同。
-
 ## 运行方式
 
 从仓库根目录启动 Jupyter：
@@ -71,19 +55,13 @@ python -m pip install jupyter torch torchvision matplotlib
 jupyter lab
 ```
 
-配置宽度对比 Notebook：
+打开：
 
 ```text
 Chapter10_BasicCNN/MNIST_CNN_Configuration_Comparison.ipynb
 ```
 
-三种架构实测 Notebook：
-
-```text
-Chapter10_BasicCNN/MNIST_Three_CNN_Architectures.ipynb
-```
-
-配置宽度对比 Notebook 默认复用第 09 章目录中的 MNIST 数据；三种架构实测 Notebook 使用 `../dataset/mnist/`，并可通过 `download=True` 自动下载。首次调试时可将训练轮数临时改为 2，确认模型尺寸、数据加载、训练与绘图均正常后再进行完整实验。
+Notebook 默认复用第 09 章目录中的 MNIST 数据。首次调试时可将 `EPOCHS = 10` 临时改为 `EPOCHS = 2`，确认模型尺寸、数据加载、训练与绘图均正常后再进行完整实验。
 
 ## 验证点
 
@@ -92,7 +70,6 @@ Chapter10_BasicCNN/MNIST_Three_CNN_Architectures.ipynb
 - 三个模型均应完整训练，且损失整体下降。
 - 对比结论应综合准确率、参数量和训练时间，不能只按模型大小判断。
 - 运行结束后应生成 `images/cnn_configuration_comparison.png`。
-- 三种架构实测 Notebook 应保留 Normal_CNN、InceptionNet、ResNetMNIST 的结果表与曲线。
 
 ## 实验结论模板
 
