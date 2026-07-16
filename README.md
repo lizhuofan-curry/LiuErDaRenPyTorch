@@ -34,7 +34,7 @@
 - [x] 第 01–06 章已有章内学习笔记。
 - [x] 第 02–09 章已有可运行实验脚本。
 - [x] 第 09 章已有 MNIST 手写数字多分类实践。
-- [x] 第 10 章已有基础 CNN 配置对比 Notebook 与实验说明。
+- [x] 第 10 章已有 CNN 宽度配置及普通 CNN、Inception、ResNet 架构对比实验。
 - [ ] 第 11–13 章学习笔记与实验代码待继续补充。
 
 ## 章节导航
@@ -50,7 +50,7 @@
 | [第 07 章](./Chapter07_MultipleDimensionInput/) | 多维特征输入 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=7) | [课件](./Chapter07_MultipleDimensionInput/Lecture_07_Multiple_Dimension_Input.pdf) · [笔记](./Chapter07_MultipleDimensionInput/README.md) · [糖尿病二分类](./Chapter07_MultipleDimensionInput/diabetes_binary_classification.py) |
 | [第 08 章](./Chapter08_DatasetAndDataloader/) | Dataset 与 DataLoader | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=8) | [课件](./Chapter08_DatasetAndDataloader/Lecture_08_Dataset_and_Dataloader.pdf) · [笔记](./Chapter08_DatasetAndDataloader/README.md) · [Dataset 与 DataLoader](./Chapter08_DatasetAndDataloader/dataset_and_dataloader.py) |
 | [第 09 章](./Chapter09_SoftmaxClassifier/) | Softmax 多分类器 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=9) | [课件](./Chapter09_SoftmaxClassifier/Lecture_09_Softmax_Classifier.pdf) · [章节笔记](./Chapter09_SoftmaxClassifier/README.md) · [MNIST 手写数字识别](./Chapter09_SoftmaxClassifier/MNISTHandwrittenDigitRecognition/README.md) · [Notebook](./Chapter09_SoftmaxClassifier/MNISTHandwrittenDigitRecognition/识别手写数字.ipynb) |
-| [第 10 章](./Chapter10_BasicCNN/) | 基础卷积神经网络（CNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=10) | [课件](./Chapter10_BasicCNN/Lecture_10_Basic_CNN.pdf) · [章节笔记](./Chapter10_BasicCNN/README.md) · [MNIST CNN 配置对比](./Chapter10_BasicCNN/MNIST_CNN_Configuration_Comparison.ipynb) |
+| [第 10 章](./Chapter10_BasicCNN/) | 基础卷积神经网络（CNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=10) | [课件](./Chapter10_BasicCNN/Lecture_10_Basic_CNN.pdf) · [章节笔记](./Chapter10_BasicCNN/README.md) · [CNN 配置对比](./Chapter10_BasicCNN/MNIST_CNN_Configuration_Comparison.ipynb) · [三种 CNN 架构实测](./Chapter10_BasicCNN/MNIST_Three_CNN_Architectures.ipynb) |
 | [第 11 章](./Chapter11_AdvancedCNN/) | 高级卷积神经网络（CNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=11) | [课件](./Chapter11_AdvancedCNN/Lecture_11_Advanced_CNN.pdf) · 暂无笔记与代码 |
 | [第 12 章](./Chapter12_BasicRNN/) | 基础循环神经网络（RNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=12) | [课件](./Chapter12_BasicRNN/Lecture_12_Basic_RNN.pdf) · 暂无笔记与代码 |
 | [第 13 章](./Chapter13_RNNClassifier/) | 循环神经网络分类器 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=13) | [课件](./Chapter13_RNNClassifier/Lecture_13_RNN_Classifier.pdf) · 暂无笔记与代码 |
@@ -145,7 +145,7 @@ python Chapter09_SoftmaxClassifier/MNISTHandwrittenDigitRecognition/train_mnist.
 jupyter lab
 ```
 
-打开 `Chapter10_BasicCNN/MNIST_CNN_Configuration_Comparison.ipynb`。Notebook 会依次训练 CNN-S、CNN-M、CNN-L，并生成损失与测试准确率对比图；模型结构和实验说明见[第 10 章笔记](./Chapter10_BasicCNN/README.md)。
+打开 `Chapter10_BasicCNN/MNIST_CNN_Configuration_Comparison.ipynb` 比较 CNN-S、CNN-M、CNN-L，或打开 `Chapter10_BasicCNN/MNIST_Three_CNN_Architectures.ipynb` 比较普通 CNN、InceptionNet 与简化 ResNet。模型结构、实测结果和训练曲线见[第 10 章笔记](./Chapter10_BasicCNN/README.md)。
 
 ## 数据集
 
