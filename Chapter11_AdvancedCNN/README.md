@@ -9,7 +9,7 @@
 - [`Lecture_11_Advanced_CNN.pdf`](./Lecture_11_Advanced_CNN.pdf)：第 11 章课程课件。
 - [`MNIST_Three_CNN_Architectures.ipynb`](./MNIST_Three_CNN_Architectures.ipynb)：普通 CNN、InceptionNet、简化 ResNet 的完整训练、评估和可视化实验。
 - `images/mnist_three_cnn_comparison.png`：Notebook 已执行输出中的训练损失与测试准确率曲线。
-- [`CIFAR10_Three_CNN_Architectures/`](./CIFAR10_Three_CNN_Architectures/)：CIFAR-10 上普通 CNN、InceptionNet 与 ResNet 的原样训练脚本、结构概览和运行说明。
+- [`CIFAR10_Three_CNN_Architectures/`](./CIFAR10_Three_CNN_Architectures/)：CIFAR-10 上普通 CNN、InceptionNet 与 ResNet 的原样训练脚本、结构概览、实测 Loss/Accuracy 曲线与运行说明。
 
 ## 三种架构
 
@@ -27,7 +27,13 @@
 
 ## CIFAR-10 扩展实验
 
-[`CIFAR10_Three_CNN_Architectures`](./CIFAR10_Three_CNN_Architectures/) 使用同样的三类结构在 CIFAR-10 彩色图像数据集上训练。源码按提供内容原样导入；子目录 README 附有结构与实验设置概览图，并明确区分该图与完整训练后显示的真实曲线，避免把未运行结果当作指标。
+[`CIFAR10_Three_CNN_Architectures`](./CIFAR10_Three_CNN_Architectures/) 使用同样的三类结构在 CIFAR-10 彩色图像数据集上训练。源码按提供内容原样导入；下面两张图为本次 20 个 epoch 训练记录的真实曲线。
+
+![CIFAR-10 三种 CNN 的训练与验证 Loss](./CIFAR10_Three_CNN_Architectures/images/cifar10_loss_curves.png)
+
+![CIFAR-10 三种 CNN 的训练与验证 Accuracy](./CIFAR10_Three_CNN_Architectures/images/cifar10_accuracy_curves.png)
+
+三种模型的训练 Loss 均稳定下降，训练 Accuracy 最终接近 0.88；验证曲线存在正常波动，最终准确率约在 0.83–0.84 区间。单次 20 epoch 运行中没有绝对领先的模型，因此应结合重复实验、训练耗时和参数量再做架构选择。
 
 ## 实测结果
 
