@@ -12,6 +12,8 @@
 
 - [`cifar10_three_cnn_architectures.py`](./cifar10_three_cnn_architectures.py)：原样导入的完整训练脚本。
 - [`images/cifar10_architecture_overview.png`](./images/cifar10_architecture_overview.png)：三种网络结构和共用实验设置概览。
+- [`images/cifar10_loss_curves.png`](./images/cifar10_loss_curves.png)：本次训练的训练/验证 Loss 对比曲线。
+- [`images/cifar10_accuracy_curves.png`](./images/cifar10_accuracy_curves.png)：本次训练的训练/验证 Accuracy 对比曲线。
 
 ## 三种模型
 
@@ -41,9 +43,20 @@ python cifar10_three_cnn_architectures.py
 
 首次运行会自动下载 CIFAR-10 到当前文件夹下的 `data/`。训练完成后，脚本会保存三个最佳权重文件，并依次显示：训练 Loss、验证 Loss、训练 Accuracy、验证 Accuracy 四张对比曲线。
 
-## 结果说明
+## 实测训练曲线
 
-本次导入未将尚未完整运行的曲线伪装成实验结果，因此没有记录虚构的准确率、Loss 或耗时。请以本机完整运行所显示的四张曲线为准；如需将真实曲线固化到仓库，可在运行后再上传生成截图并补充结果表。
+以下两张图来自本次 20 个 epoch 的真实训练记录：
+
+![CIFAR-10 三种 CNN 的训练与验证 Loss](./images/cifar10_loss_curves.png)
+
+![CIFAR-10 三种 CNN 的训练与验证 Accuracy](./images/cifar10_accuracy_curves.png)
+
+## 结果解读
+
+- 三个模型的训练 Loss 都持续下降，20 个 epoch 末约为 0.34–0.36；训练 Accuracy 均接近 0.88。
+- 验证 Loss 与验证 Accuracy 存在正常的批次/数据增强波动；末轮验证 Accuracy 约在 0.83–0.84 区间。
+- 单次运行中 Inception 在前期验证 Accuracy 上升较快，而后期三条曲线彼此接近；不能仅据这一次曲线断言某个架构绝对更优。
+- 该脚本当前只绘制训练/验证指标，虽已创建 CIFAR-10 测试集 DataLoader，但尚未输出测试集 Accuracy；不要将验证曲线当作测试集结论。
 
 ## 验证
 
