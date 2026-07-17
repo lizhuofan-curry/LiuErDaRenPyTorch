@@ -9,6 +9,7 @@
 - [`Lecture_11_Advanced_CNN.pdf`](./Lecture_11_Advanced_CNN.pdf)：第 11 章课程课件。
 - [`MNIST_Three_CNN_Architectures.ipynb`](./MNIST_Three_CNN_Architectures.ipynb)：普通 CNN、InceptionNet、简化 ResNet 的完整训练、评估和可视化实验。
 - `images/mnist_three_cnn_comparison.png`：Notebook 已执行输出中的训练损失与测试准确率曲线。
+- [`CIFAR10_Three_CNN_Architectures/`](./CIFAR10_Three_CNN_Architectures/)：CIFAR-10 上普通 CNN、InceptionNet 与 ResNet 的原样训练脚本、结构概览和运行说明。
 
 ## 三种架构
 
@@ -23,6 +24,10 @@
 ### ResNetMNIST
 
 残差块通过 `H(x) = F(x) + x` 保留捷径。当通道数或空间尺寸改变时，使用 `1×1` 卷积调整 shortcut；最后通过自适应平均池化完成分类。
+
+## CIFAR-10 扩展实验
+
+[`CIFAR10_Three_CNN_Architectures`](./CIFAR10_Three_CNN_Architectures/) 使用同样的三类结构在 CIFAR-10 彩色图像数据集上训练。源码按提供内容原样导入；子目录 README 附有结构与实验设置概览图，并明确区分该图与完整训练后显示的真实曲线，避免把未运行结果当作指标。
 
 ## 实测结果
 
