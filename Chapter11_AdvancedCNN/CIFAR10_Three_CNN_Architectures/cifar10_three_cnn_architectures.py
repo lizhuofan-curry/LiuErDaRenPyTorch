@@ -1151,10 +1151,7 @@ trained_models = {}
 # 保存三个模型的训练记录
 all_histories ={}
 
-# 依次自动训练三个模型
-# =========================================================
 # 自动依次训练三个模型
-# =========================================================
 
 for model_name, model_builder in model_builders.items():
 
@@ -1210,9 +1207,7 @@ for model_name, model_builder in model_builders.items():
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
 
-# =========================================================
 # 绘制三个模型的对比曲线
-# =========================================================
 
 # 从其中一个模型的 history 中获取 epoch 数
 # 因为三个模型都训练了相同的轮数，所以取谁都可以
@@ -1222,9 +1217,7 @@ num_epochs = len(all_histories["Simple CNN"]["train_loss"])
 epochs = range(1, num_epochs + 1)
 
 
-# =========================================================
 # 1. 训练集 Loss 对比
-# =========================================================
 plt.figure(figsize=(8, 5))
 
 for model_name, history in all_histories.items():
@@ -1242,9 +1235,8 @@ plt.grid(True)
 plt.show()
 
 
-# =========================================================
 # 2. 验证集 Loss 对比
-# =========================================================
+
 plt.figure(figsize=(8, 5))
 
 for model_name, history in all_histories.items():
@@ -1262,9 +1254,8 @@ plt.grid(True)
 plt.show()
 
 
-# =========================================================
 # 3. 训练集 Accuracy 对比
-# =========================================================
+
 plt.figure(figsize=(8, 5))
 
 for model_name, history in all_histories.items():
@@ -1282,9 +1273,7 @@ plt.grid(True)
 plt.show()
 
 
-# =========================================================
 # 4. 验证集 Accuracy 对比
-# =========================================================
 plt.figure(figsize=(8, 5))
 
 for model_name, history in all_histories.items():
@@ -1297,6 +1286,234 @@ for model_name, history in all_histories.items():
 plt.xlabel("Epoch")
 plt.ylabel("Validation Accuracy")
 plt.title("Validation Accuracy Comparison")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# 测试集评估函数
+def evaluate_model(
+        model,
+        test_loader,
+        device
+):
+    # 将模型移动到GPU
+    model = model.to(device)
+
+    # 切换测试模式
+    # BatchNorm会使用训练阶段保存的均和方差
+    model.eval()
+
+    # 测试集也使用交叉熵损失
+    criterion = nn.CrossEntropyLoss()
+
+    # 累计测试集loss
+    test_loss_sum = 0.0
+
+    # 累计预测正确的图片数量
+    test_correct = 0
+
+    # 累计测试图片数量
+    test_total = 0
+
+    # 测试阶段不计算梯度
+    with torch.no_grad():
+        # 遍历官方测试集
+        for images,labels in test_loader:
+
+            # 将图片和标签移动到GPU
+            images = images.to(device)
+            labels = labels.to(device)
+
+            outputs = model(images)
+
+            loss = criterion(outputs,labels)
+
+            # 当前 batch 的实际图片数量
+            current_batch_size = images.size(0)
+
+            # 累计测试loss总和
+            test_loss_sum += loss.item()*current_batch_size
+
+            # 找出每张图片预测分数最大的类别
+            predictions = outputs.argmax(dim=1)
+
+            # 累计预测正确数量
+            test_correct += (predictions == labels).sum().item()
+
+            # 累计测试图片总数
+            test_total += current_batch_size
+    # 测试集平均loss
+    test_loss = test_loss_sum / test_total
+    # 测试集准确率
+    test_accuracy = test_correct / test_total
+
+    #将模型放回CPU,释放GPU显存
+    model = model.to('cpu')
+
+    return test_loss, test_accuracy
+
+# 使用官方测试集评估三个模型
+test_results = {}
+
+for model_name,model in trained_models.items():
+    # 测试当前模型
+    test_loss, test_accuracy = evaluate_model(
+        model=model,
+        test_loader=test_loader,
+        device=device
+    )
+    # 保存测试结果
+    test_results[model_name] ={
+        'test_loss' : test_loss,
+        'test_accuracy' : test_accuracy
+    }
+
+    print('='*50)
+    print(f"模型：{model_name}")
+    print(f"Test Loss：{test_loss:.4f}")
+    print(f"Test Accuracy：{test_accuracy:.4f}")
+
+    # 清理未使用的 GPU 显存
+    if torch.cuda.is_available():
+        torch.cuda.empty_cache()
+    print("=" * 50)
+
+# 测试集准确率折线图
+
+
+model_names = list(
+    test_results.keys()
+)
+
+test_accuracies = [
+    test_results[model_name]["test_accuracy"]
+    for model_name in model_names
+]
+
+
+plt.figure(figsize=(8, 5))
+
+plt.plot(
+    model_names,
+    test_accuracies,
+    marker="o",
+    linewidth=2
+)
+
+
+# 在每个点上方显示具体准确率
+for model_name, accuracy in zip(
+    model_names,
+    test_accuracies
+):
+    plt.text(
+        model_name,
+        accuracy + 0.002,
+        f"{accuracy:.4f}",
+        ha="center"
+    )
+
+
+plt.xlabel("Model")
+plt.ylabel("Test Accuracy")
+plt.title("Test Accuracy Comparison")
+
+plt.grid(True)
+plt.show()
+
+# 测试集 Loss 折线图
+
+
+model_names = list(
+    test_results.keys()
+)
+
+test_losses = [
+    test_results[model_name]["test_loss"]
+    for model_name in model_names
+]
+
+
+plt.figure(figsize=(8, 5))
+
+plt.plot(
+    model_names,
+    test_losses,
+    marker="o",
+    linewidth=2
+)
+
+
+# 显示每个模型的具体测试 Loss
+for model_name, loss in zip(
+    model_names,
+    test_losses
+):
+    plt.text(
+        model_name,
+        loss + 0.005,
+        f"{loss:.4f}",
+        ha="center"
+    )
+
+
+plt.xlabel("Model")
+plt.ylabel("Test Loss")
+plt.title("Test Loss Comparison")
+
+plt.grid(True)
+plt.show()
+
+# =========================================================
+# 最佳验证准确率和测试准确率对比
+# =========================================================
+
+model_names = list(
+    all_histories.keys()
+)
+
+
+best_valid_accuracies = [
+    all_histories[model_name]["best_valid_acc"]
+    for model_name in model_names
+]
+
+
+test_accuracies = [
+    test_results[model_name]["test_accuracy"]
+    for model_name in model_names
+]
+
+
+plt.figure(figsize=(9, 5))
+
+
+# 最佳验证准确率
+plt.plot(
+    model_names,
+    best_valid_accuracies,
+    marker="o",
+    linewidth=2,
+    label="Best Validation Accuracy"
+)
+
+
+# 测试集准确率
+plt.plot(
+    model_names,
+    test_accuracies,
+    marker="o",
+    linewidth=2,
+    label="Test Accuracy"
+)
+
+
+plt.xlabel("Model")
+plt.ylabel("Accuracy")
+plt.title(
+    "Validation and Test Accuracy Comparison"
+)
+
 plt.legend()
 plt.grid(True)
 plt.show()
