@@ -36,8 +36,8 @@
 - [x] 第 09 章已有 MNIST 手写数字多分类实践。
 - [x] 第 10 章已有基础 CNN 配置对比 Notebook 与实验说明。
 - [x] 第 11 章已有普通 CNN、Inception 与 ResNet 的 MNIST 架构对比，以及 CIFAR-10 三种 CNN 的实测曲线。
-- [x] 第 12 章已有 RNNCell + One-hot 字符序列预测练习。
-- [ ] 第 12 章学习笔记与后续实验、第 13 章学习笔记与实验代码待继续补充。
+- [x] 第 12 章已有章内学习笔记和 RNNCell + One-hot 字符序列预测练习。
+- [ ] 第 12 章后续实验、第 13 章学习笔记与实验代码待继续补充。
 
 ## 章节导航
 
@@ -54,7 +54,7 @@
 | [第 09 章](./Chapter09_SoftmaxClassifier/) | Softmax 多分类器 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=9) | [课件](./Chapter09_SoftmaxClassifier/Lecture_09_Softmax_Classifier.pdf) · [章节笔记](./Chapter09_SoftmaxClassifier/README.md) · [MNIST 手写数字识别](./Chapter09_SoftmaxClassifier/MNISTHandwrittenDigitRecognition/README.md) · [Notebook](./Chapter09_SoftmaxClassifier/MNISTHandwrittenDigitRecognition/识别手写数字.ipynb) |
 | [第 10 章](./Chapter10_BasicCNN/) | 基础卷积神经网络（CNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=10) | [课件](./Chapter10_BasicCNN/Lecture_10_Basic_CNN.pdf) · [章节笔记](./Chapter10_BasicCNN/README.md) · [MNIST CNN 配置对比](./Chapter10_BasicCNN/MNIST_CNN_Configuration_Comparison.ipynb) |
 | [第 11 章](./Chapter11_AdvancedCNN/) | 高级卷积神经网络（CNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=11) | [课件](./Chapter11_AdvancedCNN/Lecture_11_Advanced_CNN.pdf) · [章节笔记](./Chapter11_AdvancedCNN/README.md) · [MNIST 三种 CNN 架构实测](./Chapter11_AdvancedCNN/MNIST_Three_CNN_Architectures.ipynb) · [CIFAR-10 三种 CNN 对比与实测曲线](./Chapter11_AdvancedCNN/CIFAR10_Three_CNN_Architectures/README.md) |
-| [第 12 章](./Chapter12_BasicRNN/) | 基础循环神经网络（RNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=12) | [课件](./Chapter12_BasicRNN/Lecture_12_Basic_RNN.pdf) · [RNNCell + One-hot](./Chapter12_BasicRNN/RNNCell%20%2B%20Onehot.py) · 暂无笔记 |
+| [第 12 章](./Chapter12_BasicRNN/) | 基础循环神经网络（RNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=12) | [课件](./Chapter12_BasicRNN/Lecture_12_Basic_RNN.pdf) · [章节笔记](./Chapter12_BasicRNN/README.md) · [RNNCell + One-hot](./Chapter12_BasicRNN/RNNCell%20%2B%20Onehot.py) |
 | [第 13 章](./Chapter13_RNNClassifier/) | 循环神经网络分类器 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=13) | [课件](./Chapter13_RNNClassifier/Lecture_13_RNN_Classifier.pdf) · 暂无笔记与代码 |
 
 ## 运行环境
