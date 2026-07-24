@@ -6,6 +6,7 @@
 
 - [课程课件：Lecture 13 RNN Classifier](./Lecture_13_RNN_Classifier.pdf)
 - [RNN、LSTM 与 BiLSTM 人名分类实验](./NameClassifier_RNN_LSTM/README.md)
+- [BiLSTM 电影评论情感五分类实验](./MovieReviewSentiment_BiLSTM/README.md)
 
 ## 实验概览
 
@@ -32,3 +33,15 @@
 - 按每轮准确率保存最佳模型参数。
 
 详细目录、运行方法、结果图和复现实验说明见[实验 README](./NameClassifier_RNN_LSTM/README.md)。
+
+## 扩展实践：电影评论情感五分类
+
+[电影评论情感五分类实验](./MovieReviewSentiment_BiLSTM/README.md)将字符级人名分类扩展到词级文本分类，包含：
+
+- 通过 `Counter` 构建词表，并设置 `<PAD>` 与 `<UNK>`。
+- 使用自定义 `collate_fn` 对每个 batch 进行动态 padding。
+- 使用 `SentenceId` 划分训练集和验证集，避免同一句子的短语跨集合泄漏。
+- 通过 BiLSTM 同时提取正向和反向文本信息。
+- 生成 Kaggle 格式的 `submission.csv`。
+
+Notebook 已保存的最高验证准确率为 **60.78%（Epoch 6）**。训练后期训练准确率继续上升，而验证损失逐步升高，表现出过拟合趋势；详细曲线、训练设置和结果边界见[项目 README](./MovieReviewSentiment_BiLSTM/README.md)。
