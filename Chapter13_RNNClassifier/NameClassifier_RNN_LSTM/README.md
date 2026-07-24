@@ -1,6 +1,6 @@
-# RNN 与 LSTM 人名国家分类实验
+# RNN、LSTM 与 BiLSTM 人名国家分类实验
 
-这个实验使用字符级序列模型，根据人名预测其所属国家类别。目录中保留了用户完成的 RNN 与 LSTM 两个 Jupyter Notebook，并附带它们实际运行输出生成的训练效果图。
+这个实验使用字符级序列模型，根据人名预测其所属国家类别。目录中保留了用户完成的 RNN、LSTM 与 BiLSTM 三个 Jupyter Notebook，并附带它们实际运行输出生成的训练效果图。
 
 ## 目录
 
@@ -8,17 +8,20 @@
 NameClassifier_RNN_LSTM/
 ├── RNN人名分类器 RNN版.ipynb
 ├── RNN人名分类器 LSTM版.ipynb
+├── RNN 人名分类器  BiLSTM版.ipynb
 ├── data/
 │   ├── names_train.csv.gz
 │   └── names_test.csv.gz
 ├── images/
 │   ├── rnn_training_results.png
 │   ├── lstm_training_results.png
-│   └── rnn_lstm_test_accuracy_comparison.png
+│   ├── bilstm_training_results.png
+│   ├── rnn_lstm_test_accuracy_comparison.png
+│   └── rnn_lstm_bilstm_test_accuracy_comparison.png
 └── README.md
 ```
 
-两份 Notebook 及其中文注释、训练逻辑、超参数和已保存输出均保持原样。`data/` 中保留运行所需的数据文件，使 Notebook 里的相对路径 `data/names_train.csv.gz` 和 `data/names_test.csv.gz` 可以直接使用。
+三份 Notebook 及其中文注释、训练逻辑、超参数和已保存输出均保持原样。`data/` 中保留运行所需的数据文件，使 Notebook 里的相对路径 `data/names_train.csv.gz` 和 `data/names_test.csv.gz` 可以直接使用。
 
 ## 数据处理流程
 
@@ -35,26 +38,37 @@ NameClassifier_RNN_LSTM/
 
 ## 模型结构
 
-两种模型共享以下数据流：
+三种模型共享以下数据流：
 
 ```text
 人名字符串
   → 字符索引
   → Embedding(57, 64)
-  → RNN 或 LSTM(64, 64)
-  → 最后一层隐藏状态
-  → Linear(64, 18)
+  → RNN、LSTM 或 BiLSTM
+  → 最终序列表示
+  → Linear
   → 国家类别分数
 ```
 
 主要区别：
 
-| 项目 | RNN | LSTM |
-|---|---|---|
-| PyTorch 模块 | `nn.RNN` | `nn.LSTM` |
-| 最终状态 | `hidden` | `hidden` 与 `cell` |
-| 分类使用 | 最后隐藏状态 | 最后隐藏状态 |
-| 长期信息管理 | 直接递归更新隐藏状态 | 通过门控和细胞状态管理 |
+| 项目 | RNN | LSTM | BiLSTM |
+|---|---|---|---|
+| PyTorch 模块 | `nn.RNN` | `nn.LSTM` | `nn.LSTM(..., bidirectional=True)` |
+| 最终状态 | `hidden` | `hidden` 与 `cell` | 前向、反向各一组 `hidden` 与 `cell` |
+| 分类输入 | 最后隐藏状态，64 维 | 最后隐藏状态，64 维 | 前后向隐藏状态拼接，128 维 |
+| 分类层 | `Linear(64, 18)` | `Linear(64, 18)` | `Linear(64 * 2, 18)` |
+| 序列方向 | 从左到右 | 从左到右 | 从左到右 + 从右到左 |
+
+BiLSTM Notebook 中用于分类的核心代码是：
+
+```python
+forward_hidden = hidden[-2]
+backward_hidden = hidden[-1]
+hidden = torch.cat([forward_hidden, backward_hidden], dim=1)
+```
+
+这会把两个方向各 64 维的最终隐藏状态拼接成 128 维表示，再送入分类层。
 
 ## 训练设置
 
@@ -83,13 +97,23 @@ Notebook 已保存输出中的最佳测试准确率为 **82.78%**，出现在第
 
 ![LSTM 训练结果](./images/lstm_training_results.png)
 
-### 两种模型对比
+### BiLSTM
 
-本次运行中，LSTM 的最佳准确率比 RNN 高 **2.27 个百分点**。
+Notebook 已保存输出中的最佳测试准确率为 **84.06%**，出现在第 10 轮；对应平均训练损失为 **0.1623**。
 
-![RNN 与 LSTM 测试准确率对比](./images/rnn_lstm_test_accuracy_comparison.png)
+![BiLSTM 训练结果](./images/bilstm_training_results.png)
 
-这些图直接解析两个 Notebook 中保存的每轮 Loss 与 Accuracy 输出生成，没有补造或重新估算训练指标。
+### 三种模型对比
+
+本次已保存运行中：
+
+- LSTM 的最佳准确率比 RNN 高 **2.27 个百分点**。
+- BiLSTM 的最佳准确率比 RNN 高 **3.55 个百分点**。
+- BiLSTM 的最佳准确率比 LSTM 高 **1.28 个百分点**。
+
+![RNN、LSTM 与 BiLSTM 测试准确率对比](./images/rnn_lstm_bilstm_test_accuracy_comparison.png)
+
+这些图直接解析三个 Notebook 中保存的每轮 Loss 与 Accuracy 输出生成，没有补造或重新估算训练指标。
 
 ## 运行方法
 
@@ -109,6 +133,7 @@ Chapter13_RNNClassifier/NameClassifier_RNN_LSTM/
 
 - `RNN人名分类器 RNN版.ipynb`
 - `RNN人名分类器 LSTM版.ipynb`
+- `RNN 人名分类器  BiLSTM版.ipynb`
 
 Notebook 会在当前目录保存：
 
@@ -116,11 +141,11 @@ Notebook 会在当前目录保存：
 best_rnn_name_classifier.pth
 ```
 
-> 两个 Notebook 使用同一个模型文件名。依次运行时，后运行的 Notebook 会覆盖前一个模型参数文件。如果需要同时保留两个最佳模型，请在本地分别重命名生成的 `.pth` 文件。
+> 三个 Notebook 使用同一个模型文件名。依次运行时，后运行的 Notebook 会覆盖前一个模型参数文件。如果需要同时保留三个最佳模型，请在本地分别重命名生成的 `.pth` 文件。
 
 ## 结果解释与限制
 
-- RNN 与 LSTM 的结果来自两次独立训练，且代码没有固定随机种子；重新运行时准确率可能略有变化。
+- RNN、LSTM 与 BiLSTM 的结果来自三次独立训练，且代码没有固定随机种子；重新运行时准确率可能略有变化。
 - 代码每轮都读取 `names_test.csv.gz` 计算准确率，并用该准确率选择最佳模型。因此该文件在实验流程中更接近验证集，而不是完全独立、只使用一次的最终测试集。
 - 模型学习的是字符组合和常见姓氏后缀等模式，并不能确定一个真实人物的国籍。
 - 自定义预测仅在字符表包含输入字符时安全；字符表以外的字符会使 `find()` 返回 `-1`，不适合直接送入 Embedding。
@@ -135,4 +160,7 @@ AF0E546BD5D1CB6C49C6EF7B4C6AE3024E2C8A8CD3165AB47757190C3857C7C6
 
 RNN人名分类器 LSTM版.ipynb
 FEB94FCA24743C30831345B15D15B594FC213A22C9FAAF09B2ACBEC2D08ED73F
+
+RNN 人名分类器  BiLSTM版.ipynb
+D60AB741C3D938A38BD79A7056E21A7E6480594525EF95559755720BB47CFF7A
 ```

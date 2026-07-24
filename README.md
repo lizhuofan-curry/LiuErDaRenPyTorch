@@ -37,7 +37,7 @@
 - [x] 第 10 章已有基础 CNN 配置对比 Notebook 与实验说明。
 - [x] 第 11 章已有普通 CNN、Inception 与 ResNet 的 MNIST 架构对比，以及 CIFAR-10 三种 CNN 的实测曲线。
 - [x] 第 12 章已有章内学习笔记，以及 RNNCell + One-hot、RNN + One-hot、RNN + Embedding 练习。
-- [x] 第 13 章已补充 RNN 与 LSTM 人名国家分类 Notebook、运行数据与实测曲线。
+- [x] 第 13 章已补充 RNN、LSTM 与 BiLSTM 人名国家分类，以及 BiLSTM 电影评论情感五分类实验。
 
 ## 章节导航
 
@@ -55,7 +55,7 @@
 | [第 10 章](./Chapter10_BasicCNN/) | 基础卷积神经网络（CNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=10) | [课件](./Chapter10_BasicCNN/Lecture_10_Basic_CNN.pdf) · [章节笔记](./Chapter10_BasicCNN/README.md) · [MNIST CNN 配置对比](./Chapter10_BasicCNN/MNIST_CNN_Configuration_Comparison.ipynb) |
 | [第 11 章](./Chapter11_AdvancedCNN/) | 高级卷积神经网络（CNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=11) | [课件](./Chapter11_AdvancedCNN/Lecture_11_Advanced_CNN.pdf) · [章节笔记](./Chapter11_AdvancedCNN/README.md) · [MNIST 三种 CNN 架构实测](./Chapter11_AdvancedCNN/MNIST_Three_CNN_Architectures.ipynb) · [CIFAR-10 三种 CNN 对比与实测曲线](./Chapter11_AdvancedCNN/CIFAR10_Three_CNN_Architectures/README.md) |
 | [第 12 章](./Chapter12_BasicRNN/) | 基础循环神经网络（RNN） | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=12) | [课件](./Chapter12_BasicRNN/Lecture_12_Basic_RNN.pdf) · [章节笔记](./Chapter12_BasicRNN/README.md) · [RNNCell + One-hot](./Chapter12_BasicRNN/RNNCell%20%2B%20Onehot.py) · [RNN + One-hot Notebook](./Chapter12_BasicRNN/RNN%20%EF%BC%8B%20Onehot%20%E7%BB%83%E4%B9%A0.ipynb) · [RNN + Embedding Notebook](./Chapter12_BasicRNN/RNN%20%2B%20Embedding%20%E7%BB%83%E4%B9%A0.ipynb) |
-| [第 13 章](./Chapter13_RNNClassifier/) | 循环神经网络分类器 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=13) | [课件](./Chapter13_RNNClassifier/Lecture_13_RNN_Classifier.pdf) · [章节笔记](./Chapter13_RNNClassifier/README.md) · [RNN 与 LSTM 人名分类实验](./Chapter13_RNNClassifier/NameClassifier_RNN_LSTM/README.md) |
+| [第 13 章](./Chapter13_RNNClassifier/) | 循环神经网络分类器 | [观看](https://www.bilibili.com/video/BV1Y7411d7Ys?p=13) | [课件](./Chapter13_RNNClassifier/Lecture_13_RNN_Classifier.pdf) · [章节笔记](./Chapter13_RNNClassifier/README.md) · [RNN、LSTM 与 BiLSTM 人名分类实验](./Chapter13_RNNClassifier/NameClassifier_RNN_LSTM/README.md) · [BiLSTM 电影评论情感五分类](./Chapter13_RNNClassifier/MovieReviewSentiment_BiLSTM/README.md) |
 
 ## 运行环境
 
@@ -69,7 +69,7 @@ python -m pip install numpy matplotlib torch torchvision jupyter
 - 第 03 章仅使用 Python 标准库。
 - 第 04–08 章使用 PyTorch 自动求导和优化器。
 - 第 09–11 章额外使用 `torchvision` 读取 MNIST 数据。
-- 第 12–13 章使用 PyTorch 的 RNN、Embedding 与 LSTM 模块处理字符序列。
+- 第 12–13 章使用 PyTorch 的 RNN、Embedding 与 LSTM 模块处理字符序列和文本序列；电影评论实验还需要 Pandas。
 
 ## 运行示例
 
@@ -177,13 +177,21 @@ Chapter12_BasicRNN/RNN ＋ Onehot 练习.ipynb
 Chapter12_BasicRNN/RNN + Embedding 练习.ipynb
 ```
 
-运行第 13 章 RNN 或 LSTM 人名国家分类实验：
+运行第 13 章 RNN、LSTM 或 BiLSTM 人名国家分类实验：
 
 ```bash
 jupyter lab
 ```
 
-进入 `Chapter13_RNNClassifier/NameClassifier_RNN_LSTM/`，打开 `RNN人名分类器 RNN版.ipynb` 或 `RNN人名分类器 LSTM版.ipynb`。两种模型的结构、训练设置、实测曲线与运行限制见[第 13 章实验说明](./Chapter13_RNNClassifier/NameClassifier_RNN_LSTM/README.md)。
+进入 `Chapter13_RNNClassifier/NameClassifier_RNN_LSTM/`，打开 `RNN人名分类器 RNN版.ipynb`、`RNN人名分类器 LSTM版.ipynb` 或 `RNN 人名分类器  BiLSTM版.ipynb`。三种模型的结构、训练设置、实测曲线与运行限制见[第 13 章实验说明](./Chapter13_RNNClassifier/NameClassifier_RNN_LSTM/README.md)。
+
+运行第 13 章 BiLSTM 电影评论情感五分类实验：
+
+```bash
+jupyter lab
+```
+
+进入 `Chapter13_RNNClassifier/MovieReviewSentiment_BiLSTM/` 并打开 `电影评价分类.ipynb`。数据处理、动态 padding、BiLSTM 模型、训练曲线和 Kaggle 提交文件说明见[项目 README](./Chapter13_RNNClassifier/MovieReviewSentiment_BiLSTM/README.md)。
 
 ## 数据集
 
@@ -195,6 +203,7 @@ jupyter lab
 | [`names_train.csv.gz`](./datasets/names_train.csv.gz) | 已归档；第 13 章实验目录中另有一份按 Notebook 相对路径组织的运行副本 |
 | [`names_test.csv.gz`](./datasets/names_test.csv.gz) | 已归档；第 13 章实验目录中另有一份按 Notebook 相对路径组织的运行副本 |
 | [MNIST（压缩 IDX）](./Chapter09_SoftmaxClassifier/MNISTHandwrittenDigitRecognition/data/MNIST/raw/) | 第 09 章全连接分类、第 10 章基础 CNN 与第 11 章高级 CNN 架构对比 |
+| [电影评论情感分类数据](./Chapter13_RNNClassifier/MovieReviewSentiment_BiLSTM/) | 第 13 章 BiLSTM 文本分类实验使用的 `train.tsv.zip`、`test.tsv.zip` 与提交文件 |
 
 ## 目录结构
 
